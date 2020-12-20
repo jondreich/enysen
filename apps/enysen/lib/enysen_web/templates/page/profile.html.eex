@@ -1,0 +1,12 @@
+<section class="phx-hero">
+  <%= if @signed_in do %>
+    <%= if @username == @current_user.username do %>
+      <h1><%= gettext "%{name}'s profile", name: @username %></h1>
+      <%= gettext "stream key: %{key}", key: @current_user.stream_key %>
+    <% else %>
+      <h1>kys</h1>
+    <% end %>
+  <% else %>
+    <h1>try signing in first fuckwit</h1>
+  <% end %>
+</section>

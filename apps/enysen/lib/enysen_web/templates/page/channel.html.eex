@@ -1,0 +1,6 @@
+<section class="phx-hero">
+  <h1><%= gettext "%{name}'s stream", name: @username %></h1>
+  <video data-dashjs-player autoplay loop muted controls src="<%=@live_video_source%>" style="width: 630px;">
+  </video>
+</section>
+<script defer type="text/javascript" src="http://cdn.dashjs.org/latest/dash.all.min.js"></script>
