@@ -3,4 +3,14 @@
   <video data-dashjs-player autoplay loop muted controls src="<%=@live_video_source%>" style="width: 630px;">
   </video>
 </section>
+<section class="chat">
+  <h4>Chat</h4>
+  <div id="chat-box">
+  </div>
+  <%= if @current_user do %>
+    <form id="chat-form">
+    <textarea placeholder="Type message here" id="chat-textarea"></textarea>
+    <button type="submit">Send</button>
+  <% end %>
+</section>
 <script defer type="text/javascript" src="http://cdn.dashjs.org/latest/dash.all.min.js"></script>
