@@ -25,12 +25,4 @@ defmodule Enysen.Users.User do
     |> unique_constraint(:username, name: :users_username_index, message: "username already in use")
     |> Changeset.change(%{stream_key: Ecto.UUID.generate()})
   end
-
-  defp generate_stream_key(%Ecto.Changeset{valid?: true, changes: changeset}) do
-    Changeset.change(changeset, %{stream_key: Ecto.UUID.generate()})
-  end
-
-  defp generate_stream_key(changeset) do
-    changeset
-  end
 end

@@ -5,18 +5,19 @@ defmodule EnysenWeb.Router do
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
-    plug :fetch_flash
+    plug :fetch_live_flash
+    plug :put_root_layout, {EnysenWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+  end
+
+  pipeline :api do
+    plug :accepts, ["json"]
   end
 
   pipeline :protected do
     plug Pow.Plug.RequireAuthenticated,
       error_handler: Pow.Phoenix.PlugErrorHandler
-  end
-
-  pipeline :api do
-    plug :accepts, ["json"]
   end
 
   scope "/" do
@@ -28,11 +29,11 @@ defmodule EnysenWeb.Router do
   scope "/", EnysenWeb do
     pipe_through :browser
 
-    get "/publish", StreamController, :start_stream
+    get "/publish", StreamRedirectController, :start_stream
 
-    get "/", PageController, :index
-    get "/:username", PageController, :channel
-    get "/:username/profile", PageController, :profile
+    live "/", PageLive, :index
+
+    get "/:username", ChannelController, :channel
   end
 
   # Other scopes may use custom stacks.

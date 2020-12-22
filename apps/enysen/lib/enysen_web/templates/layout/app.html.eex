@@ -1,37 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Enysen</title>
-    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
-    <script> window.currentUserUsername = `<%= if @current_user do @current_user.username else nil end%>` </script>
-    <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
-  </head>
-  <body>
-    <header>
-      <section class="container">
-        <nav role="navigation">
-          <ul>
-            <%= if @current_user do %>
-              <li><%= link @current_user.username, to: "/#{@current_user.username}", method: :get %></li>
-              <li><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></li>
-              <li><%= link "Edit account", to: Routes.pow_registration_path(@conn, :edit) %></li>
-            <% else %>
-              <li><%= link "Sign In", to: Routes.pow_session_path(@conn, :new) %></li>
-            <% end %>
-          </ul>
-        </nav>
-        <a href="http://http://192.168.1.224/" class="phx-logo">
-
-        </a>
-      </section>
-    </header>
-    <main role="main" class="container">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-      <%= @inner_content %>
-    </main>
-  </body>
-</html>
+<main role="main" class="container">
+  <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+  <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+  <%= @inner_content %>
+</main>

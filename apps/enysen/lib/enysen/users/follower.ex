@@ -1,7 +1,7 @@
 defmodule Enysen.Users.Follower do
   use Ecto.Schema
   import Ecto.Changeset
-  alias EnysenApi.Accounts.User
+  alias Enysen.Users.User
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -18,6 +18,6 @@ defmodule Enysen.Users.Follower do
     follower
     |> cast(attrs, [:user_id, :follower_id])
     |> validate_required([:user_id, :follower_id])
-    |> unique_constraint([:user_id, :follower_id], name: :followers_follower_id_user_id_index)
+    |> unique_constraint([:user_id, :follower_id], name: :followers_follower_id_user_id_index, message: "already following")
   end
 end

@@ -9,7 +9,6 @@ defmodule Enysen.Repo.Migrations.CreateFollowers do
 
       timestamps()
     end
-
     create(unique_index(:followers, [:follower_id, :user_id]))
   end
 end

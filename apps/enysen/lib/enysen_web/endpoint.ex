@@ -7,7 +7,7 @@ defmodule EnysenWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_enysen_key",
-    signing_salt: "E7tx9/EX"
+    signing_salt: "UKr8T+mB"
   ]
 
   socket "/socket", EnysenWeb.UserSocket,

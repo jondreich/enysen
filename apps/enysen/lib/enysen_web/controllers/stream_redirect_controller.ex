@@ -1,4 +1,4 @@
-defmodule EnysenWeb.StreamController do
+defmodule EnysenWeb.StreamRedirectController do
   use EnysenWeb, :controller
   alias Enysen.Repo
   import Ecto.Query

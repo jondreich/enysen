@@ -3,7 +3,6 @@ defmodule EnysenWeb.UserSocket do
 
   ## Channels
   # channel "room:*", EnysenWeb.RoomChannel
-  channel "user_chat:*", EnysenWeb.UserChatChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After

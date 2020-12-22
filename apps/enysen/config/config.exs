@@ -13,10 +13,10 @@ config :enysen,
 # Configures the endpoint
 config :enysen, EnysenWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "mQxmkqKNOyGy2cDB7omg/wKSP4IhZv+k0vm4ZOmo+4otR2O3HSdw2VjCgR8EnAfU",
+  secret_key_base: "XptqzJwXH4OciMntbUUu76rWnDPuIkLjI+JDgaZO+WDw3yWedoCtofHYPUsfWpaP",
   render_errors: [view: EnysenWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Enysen.PubSub,
-  live_view: [signing_salt: "QS2OnIhV"]
+  live_view: [signing_salt: "pSPqjnH3"]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -26,7 +26,7 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-# Pow for auth
+# pow for auth
 config :enysen, :pow,
   user: Enysen.Users.User,
   repo: Enysen.Repo,
