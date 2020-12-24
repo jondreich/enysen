@@ -8,6 +8,8 @@ defmodule Enysen.Repo.Migrations.CreateUsers do
       add :password_hash, :string
       add :username, :string, null: false
       add :stream_key, :string, null: false
+      add :stream_title, :string
+      add :bio, :string
 
       timestamps()
     end

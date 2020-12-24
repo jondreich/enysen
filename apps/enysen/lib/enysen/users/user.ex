@@ -13,6 +13,8 @@ defmodule Enysen.Users.User do
 
     field :username, :string, unique: true
     field :stream_key, :string
+    field :stream_title, :string, default: "Stream Title"
+    field :bio, :string, default: ""
 
     timestamps()
   end
@@ -21,7 +23,7 @@ defmodule Enysen.Users.User do
   def changeset(user, attrs) do
     user
     |> pow_changeset(attrs)
-    |> cast(attrs, [:username])
+    |> cast(attrs, [:username, :stream_title, :bio])
     |> unique_constraint(:username, name: :users_username_index, message: "username already in use")
     |> Changeset.change(%{stream_key: Ecto.UUID.generate()})
   end

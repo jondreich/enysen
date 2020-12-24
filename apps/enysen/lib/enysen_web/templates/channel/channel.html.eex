@@ -1,8 +1,6 @@
 <section class="phx-hero">
   <%= if @username do %>
-    <h1><%= gettext "%{name}'s stream", name: @username %></h1>
-    <video data-dashjs-player autoplay loop muted controls src="<%= @live_video_source %>" style="width: 630px;">
-    </video>
+    <%= live_render(@conn, EnysenWeb.ChannelLive.Player, session: %{"username" => @username, "live_video_source" => @live_video_source, "current_user" => @current_user, "edit_mode" => false }) %>
     <%= live_render(@conn, EnysenWeb.ChannelLive.FollowButton, session: %{"channel_owner" => @username, "current_user_id" => (if is_nil(@current_user), do: nil, else: @current_user.id) }) %>
   <% else %>
     <h1>user cannot be found</h1>

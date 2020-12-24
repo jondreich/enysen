@@ -15,6 +15,14 @@
   <%= text_input f, Pow.Ecto.Schema.user_id_field(@changeset) %>
   <%= error_tag f, Pow.Ecto.Schema.user_id_field(@changeset) %>
 
+  <%= label f, :username %>
+  <%= text_input f, :username %>
+  <%= error_tag f, :username %>
+
+  <%= label f, :stream_title %>
+  <%= text_input f, :stream_title %>
+  <%= error_tag f, :stream_title %>
+
   <%= label f, :password %>
   <%= password_input f, :password %>
   <%= error_tag f, :password %>
@@ -26,5 +34,10 @@
   <div>
     <%= submit "Update" %>
   </div>
-<% end %>
 
+  <div>
+  <%= link "Close account", to: Routes.pow_registration_path(@conn, :delete),
+    method: :delete, data: [confirm: "Are you sure?"]
+  %>
+</div>
+<% end %>

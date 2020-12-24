@@ -10,7 +10,7 @@ defmodule Enysen.Users do
     |> Repo.insert()
   end
 
-  def unfollow(attrs \\ %{}) do
+  def unfollow(attrs) do
     query =
       from f in Follower,
         where: f.follower_id == ^attrs.follower_id and f.user_id == ^attrs.user_id
@@ -39,7 +39,7 @@ defmodule Enysen.Users do
     length(Repo.all(query))
   end
 
-  def check_following(attrs \\ %{}) do
+  def check_following(attrs) do
     query =
       from f in Follower,
       where: f.follower_id == ^attrs.follower_id and f.user_id == ^attrs.user_id
