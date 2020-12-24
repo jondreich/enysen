@@ -29,7 +29,8 @@ defmodule EnysenWeb.Router do
   scope "/", EnysenWeb do
     pipe_through :browser
 
-    get "/publish", StreamRedirectController, :start_stream
+    get "/start-stream", StreamRedirectController, :start_stream
+    get "/end-stream", StreamRedirectController, :end_stream
 
     live "/", PageLive, :index
 

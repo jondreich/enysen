@@ -1,15 +1,28 @@
 defmodule EnysenWeb.StreamRedirectController do
   use EnysenWeb, :controller
-  alias Enysen.Repo
-  import Ecto.Query
+  alias Plug.Conn
+  alias Enysen.Content
 
   def start_stream(conn, params) do
-    query = from u in "users",
-      where: u.stream_key == ^params["name"],
-      select: u.username
+    case Content.start_stream(%{key: params["name"]}) do
+      {:ok, username} ->
+        redirect(conn, external: "rtmp://127.0.0.1/dash/#{username}")
+      {:error, any} ->
+        IO.inspect(any)
+        conn
+        |> put_status(500)
+        |> json(%{error: %{status: 500, message: "an internal server error has occurred, please try again later"}})
+    end
+  end
 
-    user = Repo.all(query)
-
-    redirect(conn, external: "rtmp://127.0.0.1/dash/#{List.first(user)}")
+  def end_stream(conn, params) do
+    case Content.end_stream(%{key: params["name"]}) do
+      {1, nil} ->
+        json(conn, %{success: %{message: "stream successfully ended"}})
+      {0, nil} ->
+        conn
+        |> put_status(404)
+        |> json(%{error: %{status: 404, message: "stream not ended, heck"}})
+    end
   end
 end
