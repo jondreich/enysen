@@ -11,11 +11,14 @@ defmodule Enysen.Content do
 
     user = List.first(Repo.all(query))
 
-    %Stream{}
+    case %Stream{}
     |> Stream.changeset(%{title: user.stream_title, user_id: user.id, start_time: DateTime.utc_now()})
-    |> Repo.insert()
-
-    {:ok, user.username}
+    |> Repo.insert() do
+      {:ok, _} ->
+        {:ok, user.username}
+      {:error, error} ->
+        {:error, error}
+    end
   end
 
   def end_stream(params) do

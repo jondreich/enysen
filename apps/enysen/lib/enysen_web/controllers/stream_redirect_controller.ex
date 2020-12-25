@@ -1,14 +1,13 @@
 defmodule EnysenWeb.StreamRedirectController do
   use EnysenWeb, :controller
-  alias Plug.Conn
   alias Enysen.Content
 
   def start_stream(conn, params) do
     case Content.start_stream(%{key: params["name"]}) do
       {:ok, username} ->
         redirect(conn, external: "rtmp://127.0.0.1/dash/#{username}")
-      {:error, any} ->
-        IO.inspect(any)
+      {:error, error} ->
+        IO.inspect(error)
         conn
         |> put_status(500)
         |> json(%{error: %{status: 500, message: "an internal server error has occurred, please try again later"}})

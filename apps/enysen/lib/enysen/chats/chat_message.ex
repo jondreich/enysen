@@ -17,6 +17,7 @@ defmodule Enysen.Chats.ChatMessage do
   def changeset(chat_message, attrs) do
     chat_message
     |> cast(attrs, [:user_id, :stream_id, :body])
+    |> validate_length(:body, min: 2, max: 180)
     |> validate_required([:user_id, :stream_id, :body])
   end
 end
