@@ -8,8 +8,9 @@ defmodule Enysen.Content.Stream do
   schema "streams" do
     field :end_time, :utc_datetime
     field :start_time, :utc_datetime
-    belongs_to :user, User, foreign_key: :user_id
+    belongs_to :user, Enysen.Users.User, foreign_key: :user_id
     field :title, :string
+    has_many :chat_messages, Enysen.Chats.ChatMessage
 
     timestamps()
   end

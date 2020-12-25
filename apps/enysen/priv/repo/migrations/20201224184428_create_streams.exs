@@ -11,6 +11,6 @@ defmodule Enysen.Repo.Migrations.CreateStreams do
 
       timestamps()
     end
-
+    create unique_index(:streams, [:end_time, :user_id])
   end
 end

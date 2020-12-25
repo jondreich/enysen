@@ -2,7 +2,6 @@ defmodule EnysenWeb.ChannelLive.Player do
   import Ecto.Query, warn: false
   import EnysenWeb.ChannelLive.Helpers
   use EnysenWeb, :live_view
-  alias Enysen.Users
 
   @impl true
   def render(assigns) do
