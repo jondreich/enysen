@@ -6,16 +6,16 @@ defmodule EnysenWeb.ChannelLive.Player do
   @impl true
   def render(assigns) do
     ~L"""
-    <video data-dashjs-player autoplay loop muted controls src="<%= @live_video_source %>" class="channel__player-area__player">
-    </video>
-    <!--
-    <div style="text-align: left;">
-      <h2><%= gettext "%{name}'s stream", name: @username %></h2>
-      <div>
-        <h3 id="stream-title"><%= gettext "%{title}", title: @stream_title %></h3>
+    <div class="channel__player-area__player-component">
+      <video data-dashjs-player autoplay loop muted controls src="<%= @live_video_source %>" class="channel__player-area__player-component__player">
+      </video>
+      <div style="text-align: left;">
+        <h2><%= gettext "%{name}'s stream", name: @username %></h2>
+        <div>
+          <h3 id="stream-title"><%= gettext "%{title}", title: @stream_title %></h3>
+        </div>
       </div>
     </div>
-    -->
     """
   end
 

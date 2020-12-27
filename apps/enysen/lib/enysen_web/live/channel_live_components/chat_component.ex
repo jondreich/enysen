@@ -28,14 +28,15 @@ defmodule EnysenWeb.ChannelLive.Chat do
   end
 
   @impl true
-  def mount(_params, %{"current_stream" => current_stream, "message_changeset" => message_changeset, "current_user" => current_user}, socket) do
+  def mount(_params, %{"current_stream" => current_stream, "message_changeset" => message_changeset, "current_user" => current_user, "username" => username}, socket) do
     if connected?(socket), do: Chats.subscribe(%{topic: current_stream.id})
     {:ok, assign(
       socket,
       current_stream: current_stream,
       chat_messages: current_stream.chat_messages,
       message_changeset: message_changeset,
-      current_user: current_user)}
+      current_user: current_user,
+      username: username)}
   end
 
   @impl true
