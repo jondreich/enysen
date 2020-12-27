@@ -7,8 +7,8 @@ defmodule EnysenWeb.ChannelLive.FollowButton do
   @impl true
   def render(assigns) do
     ~L"""
-    <b><%= gettext "followers: %{follower_count}", follower_count: @follower_count %></b>
-    <button phx-click="follow_unfollow">
+    <!--<b><%= gettext "followers: %{follower_count}", follower_count: @follower_count %></b>-->
+    <button phx-click="follow_unfollow" class="follow-button">
     <%= gettext "%{action_text}", action_text: @action_text, channel_owner: @channel_owner, current_user_id: @current_user_id %>
     </button>
     """

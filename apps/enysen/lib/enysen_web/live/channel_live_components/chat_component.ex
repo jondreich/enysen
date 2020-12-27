@@ -5,33 +5,38 @@ defmodule EnysenWeb.ChannelLive.Chat do
   @impl true
   def render(assigns) do
     ~L"""
-    <div class="phx-hero" style="background: #121212; color: #f7f7f7; padding: 1em">
-      <%= for message <- @chat_messages do %>
-        <p style="text-align: left; font-size: 0.5em; margin: 0">
-        <strong><%= message.user.username %></strong>: <%= message.body %>
-        </p>
+    <div class="channel__chat-area__chat-component">
+      <div class="channel__chat-area__chat-component__messages-area">
+        <%= for message <- @chat_messages do %>
+          <p>
+          <strong><%= message.user.username %></strong>: <%= message.body %>
+          </p>
+        <% end %>
+      </div>
+      <%= if @current_user do %>
+        <div class="channel__chat-area__chat-component__input-area">
+          <%= f = form_for @message_changeset, "#", [phx_submit: :send_message] %>
+            <%= textarea f, :body, placeholder: "Type message here...", maxlength: 180 %>
+            <%= error_tag f, :body %>
+
+            <%= submit "send" %>
+          </form>
+        </div>
       <% end %>
     </div>
-    <%= if @current_user do %>
-      <%= f = form_for @message_changeset, "#", [phx_submit: :send_message] %>
-        <%= text_input f, :body, placeholder: "Type message here..." %>
-        <%= error_tag f, :body %>
-
-        <%= submit "send" %>
-        </form>
-    <% end %>
     """
   end
 
   @impl true
-  def mount(_params, %{"current_stream" => current_stream, "message_changeset" => message_changeset, "current_user" => current_user}, socket) do
+  def mount(_params, %{"current_stream" => current_stream, "message_changeset" => message_changeset, "current_user" => current_user, "username" => username}, socket) do
     if connected?(socket), do: Chats.subscribe(%{topic: current_stream.id})
     {:ok, assign(
       socket,
       current_stream: current_stream,
       chat_messages: current_stream.chat_messages,
       message_changeset: message_changeset,
-      current_user: current_user)}
+      current_user: current_user,
+      username: username)}
   end
 
   @impl true

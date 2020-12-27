@@ -9,6 +9,7 @@
     "deps": "yarn && yarn mix deps.get",
     "bootstrap": "yarn deps && yarn migrate",
     "start": "yarn bootstrap && yarn mix phx.server",
+    "qstart": "yarn mix phx.server",
     "seed": "yarn mix run priv/repo/seeds.exs"
   }
 }
