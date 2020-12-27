@@ -7,26 +7,27 @@
     <%= csrf_meta_tag() %>
     <%= live_title_tag assigns[:page_title] || "Enysen", suffix: "" %>
     <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
     <header>
-      <section class="container">
+      <div class="menu">
+        <img class="menu__branding" src="<%= Routes.static_path(@conn, "/images/enysen_bird.svg") %>" alt="Enysen" style="width:2em">
+        <input type="text" class="menu__search-bar" placeholder="search">
         <nav role="navigation">
-          <ul>
+          <ul class="menu__list">
             <%= if @current_user do %>
-              <li><%= link @current_user.username, to: "/#{@current_user.username}", method: :get %></li>
-              <li><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></li>
-              <li><%= link "Edit account", to: Routes.pow_registration_path(@conn, :edit) %></li>
+              <li class="menu__list__item"><%= link "Channel", to: "/#{@current_user.username}", method: :get %></li>
+              <li class="menu__list__item"><%= link "Settings", to: Routes.pow_registration_path(@conn, :edit) %></li>
+              <li class="menu__list__item"><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></li>
             <% else %>
-              <li><%= link "Sign In", to: Routes.pow_session_path(@conn, :new) %></li>
+              <li class="menu__list__item"><%= button "Sign In", to: Routes.pow_session_path(@conn, :new), method: :get, class: "menu__button" %></li>
+              <li class="menu__list__item"><%= button "Register", to: Routes.pow_registration_path(@conn, :new), method: :get, class: "menu__button--secondary" %></li>
             <% end %>
           </ul>
         </nav>
-        <a href="/" class="phx-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/enysen_bird.svg") %>" alt="Phoenix Framework Logo" style="width: 5em;"/>
-        </a>
-      </section>
+      </div>
     </header>
     <%= @inner_content %>
   </body>

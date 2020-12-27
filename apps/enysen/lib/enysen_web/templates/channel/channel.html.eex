@@ -1,13 +1,32 @@
-<section class="phx-hero">
+<div class="container channel">
   <%= if @username do %>
-    <%= live_render(@conn, EnysenWeb.ChannelLive.Player, session: %{"username" => @username, "live_video_source" => @live_video_source, "current_user" => @current_user, "edit_mode" => false }) %>
-    <%= live_render(@conn, EnysenWeb.ChannelLive.FollowButton, session: %{"channel_owner" => @username, "current_user_id" => (if is_nil(@current_user), do: nil, else: @current_user.id) }) %>
-    <%= if !is_nil(@current_stream) do %>
+    <div class="channel__player-area">
+      <%= live_render(@conn, EnysenWeb.ChannelLive.Player, session: %{"username" => @username, "live_video_source" => @live_video_source, "current_user" => @current_user, "edit_mode" => false }) %>
+    </div>
+    <div class="channel__chat-area">
       <%= live_render(@conn, EnysenWeb.ChannelLive.Chat, session: %{"current_stream" => @current_stream, "message_changeset" => @message_changeset, "current_user" => @current_user}) %>
-    <% end %>
-    <%= gettext "%{key}", key: if is_nil(@current_user), do: "", else: @current_user.stream_key %>
+    </div>
+    <!--<%= gettext "%{key}", key: if is_nil(@current_user), do: "", else: @current_user.stream_key %>-->
   <% else %>
     <h1>user cannot be found</h1>
   <% end %>
-</section>
+</div>
 <script defer type="text/javascript" src="http://cdn.dashjs.org/latest/dash.all.min.js"></script>
+<div style="display: none">
+    <div class="channel-playerarea">
+      <%= live_render(@conn, EnysenWeb.ChannelLive.Player, session: %{"username" => @username, "live_video_source" => @live_video_source, "current_user" => @current_user, "edit_mode" => false }) %>
+      <%= live_render(@conn, EnysenWeb.ChannelLive.FollowButton, session: %{"channel_owner" => @username, "current_user_id" => (if is_nil(@current_user), do: nil, else: @current_user.id) }) %>
+    </div>
+    <div class="channel-chatarea">
+      <%= if !is_nil(@current_stream) do %>
+        <div class="chatarea-header">
+          <%= gettext "%{username}'s chat", username: @username %>
+        </div>
+        <%= live_render(@conn, EnysenWeb.ChannelLive.Chat, session: %{"current_stream" => @current_stream, "message_changeset" => @message_changeset, "current_user" => @current_user}) %>
+      <% else %>
+        <div class="chatarea-header">
+          <%= gettext "Chat available when %{username} goes live", username: @username %>
+        </div>
+      <% end %>
+    </div>
+</div>
