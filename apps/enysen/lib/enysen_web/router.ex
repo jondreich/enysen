@@ -9,6 +9,7 @@ defmodule EnysenWeb.Router do
     plug :put_root_layout, {EnysenWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug PowPersistentSession.Plug.Cookie
   end
 
   pipeline :api do
@@ -32,9 +33,9 @@ defmodule EnysenWeb.Router do
     get "/start-stream", StreamRedirectController, :start_stream
     get "/end-stream", StreamRedirectController, :end_stream
 
-    live "/", PageLive, :index
-
-    get "/:username", ChannelController, :channel
+    live "/", HomeLive, :index
+    live "/:channel", ChannelLive, :index
+    live "/u/dashboard", DashboardLive, :index
   end
 
   # Other scopes may use custom stacks.
@@ -56,5 +57,9 @@ defmodule EnysenWeb.Router do
       pipe_through :browser
       live_dashboard "/dashboard", metrics: EnysenWeb.Telemetry
     end
+  end
+
+  def fetch_current_user(conn, _opts) do
+    conn
   end
 end

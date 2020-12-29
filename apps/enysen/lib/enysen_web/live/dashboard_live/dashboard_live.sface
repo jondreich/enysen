@@ -1,0 +1,15 @@
+<div class="container dashboard">
+  <button phx-click="generate_channel" class="" :if={{ is_nil(@channel) }}>
+    Generate Channel to Start Streaming!
+  </button>
+  <Form for={{ Channel }} submit={{ @submit }} action="#" :if={{ !is_nil(@channel) }}>
+    stream key: {{ @channel.stream_key }}
+    <Field name="stream_title">
+      <TextInput opts={{ placeholder: "Stream title" }} value={{ @channel.stream_title }} />
+    </Field>
+    <Field name="bio">
+      <TextArea opts={{ placeholder: "Channel bio" }} value={{ @channel.bio }} />
+    </Field>
+    <Submit>send</Submit>
+  </Form>
+</div>

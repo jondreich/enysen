@@ -4,20 +4,29 @@ defmodule Enysen.Content do
   alias Enysen.Users
   alias Enysen.Content.Stream
   alias Enysen.Users.User
+  alias Enysen.Users.Channel
 
   def start_stream(params) do
-    query = from u in User,
-      where: u.stream_key == ^params.key
+    channel_query = from c in Channel,
+      where: c.stream_key == ^params.key
 
-    user = List.first(Repo.all(query))
+    case List.first(Repo.all(channel_query)) do
+      nil ->
+        {:error, "not found"}
+      channel ->
+        query = from u in User,
+          where: u.id == ^channel.user_id
 
-    case %Stream{}
-    |> Stream.changeset(%{title: user.stream_title, user_id: user.id, start_time: DateTime.utc_now()})
-    |> Repo.insert() do
-      {:ok, _} ->
-        {:ok, user.username}
-      {:error, error} ->
-        {:error, error}
+        user = List.first(Repo.all(query))
+
+        case %Stream{}
+        |> Stream.changeset(%{title: channel.stream_title, channel_id: channel.id, start_time: DateTime.utc_now()})
+        |> Repo.insert() do
+          {:ok, _} ->
+            {:ok, user.username}
+          {:error, error} ->
+            {:error, error}
+        end
     end
   end
 
@@ -33,12 +42,15 @@ defmodule Enysen.Content do
   end
 
   def get_current_stream(params) do
-    user = Users.get_user_by_username(params.username)
+    case Users.get_channel(params.username) do
+      nil ->
+        nil
+      channel ->
+        query = from s in Stream,
+        where: s.channel_id == ^channel.id and is_nil(s.end_time),
+        preload: [chat_messages: :user]
+      List.first(Repo.all(query))
+    end
 
-    query = from s in Stream,
-      where: s.user_id == ^user.id and is_nil(s.end_time),
-      preload: [chat_messages: :user]
-
-    List.first(Repo.all(query))
   end
 end

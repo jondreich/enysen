@@ -19,6 +19,7 @@
           <ul class="menu__list">
             <%= if @current_user do %>
               <li class="menu__list__item"><%= link "Channel", to: "/#{@current_user.username}", method: :get %></li>
+              <li class="menu__list__item"><%= link "Dashboard", to: "/u/dashboard", method: :get %></li>
               <li class="menu__list__item"><%= link "Settings", to: Routes.pow_registration_path(@conn, :edit) %></li>
               <li class="menu__list__item"><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></li>
             <% else %>

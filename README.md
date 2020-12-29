@@ -33,6 +33,10 @@ mix phx.server
 ```
 navigate to the webpage and create an account
 
-go to `http://<host>/<username>/profile` to find your stream key
+go to `http://<host>/u/dashboard` to find your stream key
 
 use [obs](https://obsproject.com/) or similar to stream to `rtmp://<host>/app` and watch playback at `http://<host>/<username>`
+
+to simulate a currently live stream, you can use the following requests:
+- start: `http://<host>/start-stream?name=<stream key>`
+- stop: `http://<host>/end-stream?name=<stream key>`

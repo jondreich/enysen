@@ -7,10 +7,10 @@ defmodule Enysen.Repo.Migrations.CreateStreams do
       add :title, :string
       add :start_time, :utc_datetime
       add :end_time, :utc_datetime
-      add :user_id, references(:users, on_delete: :delete_all, type: :binary_id)
+      add :channel_id, references(:channels, on_delete: :delete_all, type: :binary_id)
 
       timestamps()
     end
-    create unique_index(:streams, [:end_time, :user_id])
+    create unique_index(:streams, [:end_time, :channel_id])
   end
 end

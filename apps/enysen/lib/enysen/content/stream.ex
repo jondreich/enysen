@@ -8,7 +8,7 @@ defmodule Enysen.Content.Stream do
   schema "streams" do
     field :end_time, :utc_datetime
     field :start_time, :utc_datetime
-    belongs_to :user, Enysen.Users.User, foreign_key: :user_id
+    belongs_to :channel, Enysen.Users.Channel, foreign_key: :channel_id
     field :title, :string
     has_many :chat_messages, Enysen.Chats.ChatMessage
 
@@ -18,7 +18,7 @@ defmodule Enysen.Content.Stream do
   @doc false
   def changeset(stream, attrs) do
     stream
-    |> cast(attrs, [:title, :start_time, :end_time, :user_id])
-    |> validate_required([:title, :start_time, :user_id])
+    |> cast(attrs, [:title, :start_time, :end_time, :channel_id])
+    |> validate_required([:title, :start_time, :channel_id])
   end
 end

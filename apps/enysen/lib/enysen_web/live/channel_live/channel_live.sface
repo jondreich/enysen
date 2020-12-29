@@ -1,0 +1,25 @@
+<div class="channel">
+  <div class="channel__main">
+    <LivePlayer username={{ @channel }} class="channel__main__player"/>
+  </div>
+  <div class="channel__sidebar">
+    <div class="channel__sidebar__header">
+      <p :if={{ !is_nil(@current_stream) }}>
+        {{ @channel }}'s chat
+      </p>
+      <p :if={{ is_nil(@current_stream) }}>
+        chat available when {{ @channel }} goes live
+      </p>
+    </div>
+    <div class="channel__sidebar__chat-area">
+      <div :if={{ !is_nil(@current_stream) }}>
+        <For each={{ message <- @current_stream.chat_messages }}>
+          <Message user={{ message.user.username }} message={{ message.body }} />
+        </For>
+      </div>
+    </div>
+    <div class="channel__sidebar__chat-input" :if={{ !is_nil(@current_user) and !is_nil(@current_stream) }}>
+      <Input submit={{ @send_message }} />
+    </div>
+  </div>
+</div>
