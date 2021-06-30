@@ -1,5 +1,6 @@
 /* This file is for your main application css. */
 // @import "./phoenix.css";
+@charset "utf-8";
 @import "../node_modules/nprogress/nprogress.css";
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Roboto+Slab:wght@500&display=swap');
 
@@ -17,153 +18,236 @@ $tan:	#E0CC97;
 $yellow: #f9d89c;
 $hot-pink: rgba(240, 46, 170, 1);
 
-/* mixins */
-@mixin flexbox-parent {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
+/* BULMA OVERRIDES */
+$body-background-color: $violet;
+$primary: $hot-pink;
 
-@mixin inset-border($thickness, $color) {
-  -webkit-box-shadow:inset 0px 0px 0px $thickness $color;
-  -moz-box-shadow:inset 0px 0px 0px $thickness $color;
-  box-shadow:inset 0px 0px 0px $thickness $color;
-}
+@import "../node_modules/bulma/bulma.sass";
 
-/* Basic styling */
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+body, html{
+  //overflow: hidden;
   font-family: Inter;
 }
-html {
-  height: 100%;
-}
-body {
-  overflow: hidden;
-  height: 100%;
-  box-sizing: border-box;
-  background-color: $violet;
-  margin: 0;
-  color: $white;
-  font-family: Inter;
-  font-size: 16px;
-}
 
-header {
-  background: $green;
-}
-.phx-connected {
-  height: 100%;
-}
-
-/* nav bar */
-.menu {
-  @include flexbox-parent();
-  z-index: 1;
-  position: relative;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1em 2em;
-  box-shadow: rgba(130, 196, 195, 0.6) 0px 0px 0px 1px, rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-  &__list {
-    list-style: none;
-    &__item {
-      display: inline-block;
-      padding: 0 1em;
-      & a {
-        transition: all 0.3s ease 0s;
-        text-decoration: none;
-        color: $hot-pink;
-        &:hover {
-          text-shadow: rgba(240, 46, 170, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px;
-        }
-      }
-    }
-  }
-  &__button {
-    $self: &;
-    cursor: pointer;
-    padding: 0.8em 1.4em;
-    border-radius: 4px;
-    border: none;
-    background-color: $green-alt;
-    color: $white;
-    font-family: 'Roboto Slab';
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
-    &--secondary {
-      @extend .menu__button;
-      @include inset-border(2px, $green-alt);
-      background-color: rgba(0,0,0,0);
-      color: $violet;
-    }
-  }
-  &__branding {
-    cursor: pointer;
-  }
-  &__search-bar {
-    width: 26em;
-    height: 2.2em;
-    padding: 1.2em;
-    background-color: $green;
-    color: $violet;
-    border: none;
-    border-bottom: 1px solid $green-alt;
+.hero-head{
+  background-color: $green;
+  position:static;
+  display: inline-block;
+  width: 100%;
+  .navbar-item {
     transition: all 0.3s ease 0s;
-    &:focus {
-      border-bottom: 1px solid $tan;
+    text-decoration: none;
+    color: $primary;
+    &:hover {
+      background: none;
+      color:$hot-pink;
+      text-shadow: rgba(240, 46, 170, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px;
     }
   }
+  .button {
+    text-shadow: none;
+  }
+}
+.hero-body{
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  *[id^='phx-']{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+  }
+}
+.columns {
+  flex: 1;
 }
 
-/* MAIN SHIT */
 .channel {
-  @include flexbox-parent();
-  box-sizing: border-box;
-  flex-grow: 1;
-  flex-flow: row;
-  justify-content: stretch;
   &__main {
-    flex: 8 8 auto;
-    overflow: auto;
     &__player {
       width: 100%;
     }
   }
   &__sidebar {
-    @include flexbox-parent();
-    flex-flow: column nowrap;
-    justify-content: space-between;
-    flex: 2 2 0;
-    background-color: $mid-gray;
+    position: fixed;
+    display: block;
+    max-height: 100%;
+    right: 0;
+    color: $light;
     &__header {
-      background: $tan;
-      z-index: 2;
-      position: relative;
+      padding: 1rem 0;
       text-align: center;
-      color: $violet;
-      padding: 1em 0;
-      font-family: 'Roboto Slab';
-      text-transform: capitalize;
-      & p {
-        font-family: inherit;
+      text-transform: uppercase;
+      .title {
+        color: $primary;
       }
     }
     &__chat-area {
-      height: 100%;
+      display: block;
+      overflow-y: scroll;
+      overflow-wrap: break-word;
     }
     &__chat-input {
-      & form{
-        @include flexbox-parent();
-        width: 100%;
-        flex-flow: row;
-      }
+      display: block;
+      padding: 1rem;
     }
   }
 }
+.card {
+  background: none;
+  box-shadow: none;
+  .title, .subtitle {
+    color: $white;
+  }
+}
+
+// /* mixins */
+// @mixin flexbox-parent {
+//   display: -webkit-box;
+//   display: -moz-box;
+//   display: -webkit-flex;
+//   display: -ms-flexbox;
+//   display: flex;
+// }
+
+// @mixin inset-border($thickness, $color) {
+//   -webkit-box-shadow:inset 0px 0px 0px $thickness $color;
+//   -moz-box-shadow:inset 0px 0px 0px $thickness $color;
+//   box-shadow:inset 0px 0px 0px $thickness $color;
+// }
+
+// /* Basic styling */
+// * {
+//   box-sizing: border-box;
+//   padding: 0;
+//   margin: 0;
+//   font-family: Inter;
+// }
+// html {
+//   height: 100%;
+// }
+// body {
+//   overflow: hidden;
+//   height: 100%;
+//   box-sizing: border-box;
+//   background-color: $violet;
+//   margin: 0;
+//   color: $white;
+//   font-family: Inter;
+//   font-size: 16px;
+// }
+
+// header {
+//   background: $green;
+// }
+
+
+// /* nav bar */
+// .menu {
+//   @include flexbox-parent();
+//   z-index: 1;
+//   position: relative;
+//   justify-content: space-between;
+//   align-items: center;
+//   padding: 1em 2em;
+//   box-shadow: rgba(130, 196, 195, 0.6) 0px 0px 0px 1px, rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+//   &__list {
+//     list-style: none;
+//     &__item {
+//       display: inline-block;
+//       padding: 0 1em;
+//       & a {
+//         transition: all 0.3s ease 0s;
+//         text-decoration: none;
+//         color: $hot-pink;
+//         &:hover {
+//           text-shadow: rgba(240, 46, 170, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px;
+//         }
+//       }
+//     }
+//   }
+//   &__button {
+//     $self: &;
+//     cursor: pointer;
+//     padding: 0.8em 1.4em;
+//     border-radius: 4px;
+//     border: none;
+//     background-color: $green-alt;
+//     color: $white;
+//     font-family: 'Roboto Slab';
+//     box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+//     &--secondary {
+//       @extend .menu__button;
+//       @include inset-border(2px, $green-alt);
+//       background-color: rgba(0,0,0,0);
+//       color: $violet;
+//     }
+//   }
+//   &__branding {
+//     cursor: pointer;
+//   }
+//   &__search-bar {
+//     width: 26em;
+//     height: 2.2em;
+//     padding: 1.2em;
+//     background-color: $green;
+//     color: $violet;
+//     border: none;
+//     border-bottom: 1px solid $green-alt;
+//     transition: all 0.3s ease 0s;
+//     &:focus {
+//       border-bottom: 1px solid $tan;
+//     }
+//   }
+// }
+
+// /* MAIN SHIT */
+// .channel {
+//   @include flexbox-parent();
+//   box-sizing: border-box;
+//   flex-grow: 1;
+//   flex-flow: row;
+//   justify-content: stretch;
+//   &__main {
+//     flex: 8 8 auto;
+//     overflow: auto;
+//     &__player {
+//       width: 100%;
+//     }
+//   }
+//   &__sidebar {
+//     @include flexbox-parent();
+//     flex-flow: column nowrap;
+//     justify-content: space-between;
+//     flex: 2 2 0;
+//     background-color: $mid-gray;
+//     &__header {
+//       background: $tan;
+//       z-index: 2;
+//       position: relative;
+//       text-align: center;
+//       color: $violet;
+//       padding: 1em 0;
+//       font-family: 'Roboto Slab';
+//       text-transform: capitalize;
+//       & p {
+//         font-family: inherit;
+//       }
+//     }
+//     &__chat-area {
+//       height: 100%;
+//     }
+//     &__chat-input {
+//       & form{
+//         @include flexbox-parent();
+//         width: 100%;
+//         flex-flow: row;
+//       }
+//     }
+//   }
+// }
 
 /* LiveView specific classes for your customizations */
 .phx-no-feedback.invalid-feedback,

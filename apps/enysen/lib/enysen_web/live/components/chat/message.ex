@@ -1,7 +1,7 @@
 defmodule EnysenWeb.Live.Components.Chat.Message do
   use Surface.Component
 
-  prop user, :string, default: "test"
+  prop user, :string, required: true
 
   prop message, :string, required: true
 

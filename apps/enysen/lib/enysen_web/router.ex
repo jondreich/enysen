@@ -58,8 +58,4 @@ defmodule EnysenWeb.Router do
       live_dashboard "/dashboard", metrics: EnysenWeb.Telemetry
     end
   end
-
-  def fetch_current_user(conn, _opts) do
-    conn
-  end
 end

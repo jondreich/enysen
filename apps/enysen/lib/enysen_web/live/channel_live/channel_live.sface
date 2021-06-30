@@ -1,4 +1,40 @@
-<div class="channel">
+<div class="columns channel">
+  <div class="column is-four-fifths channel__main">
+    <LivePlayer :if={{ !is_nil(@current_stream) }} username={{ @channel }} class="channel__main__player"/>
+    <figure :if={{ is_nil(@current_stream) }} class="image is-16by9">
+      <img class="has-ratio channel__main__player" src="https://bulma.io/images/placeholders/1280x960.png" />
+    </figure>
+    <LiveCard username={{ @channel }} stream_title={{ @current_stream.title }} />
+  </div>
+  <div class="column is-one-fifth channel__sidebar">
+    <div class="columns">
+
+      <div class="channel__sidebar__header column is-full">
+        <p :if={{ !is_nil(@current_stream) }} class="title is-6">
+          {{ @channel }}'s chat
+        </p>
+        <p :if={{ is_nil(@current_stream) }}>
+          chat available when {{ @channel }} goes live
+        </p>
+      </div>
+    </div>
+    <div class="columns channel__sidebar__chat-area">
+      <div class=" column is-full">
+      <div :if={{ !is_nil(@current_stream) }}>
+        <For each={{ message <- @current_stream.chat_messages }}>
+          <Message user={{ message.user.username }} message={{ message.body }} />
+        </For>
+      </div>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="channel__sidebar__chat-input column is-full" :if={{ !is_nil(@current_user) and !is_nil(@current_stream) }}>
+        <Input submit={{ @send_message }} />
+      </div>
+    </div>
+  </div>
+</div>
+<!--
   <div class="channel__main">
     <LivePlayer username={{ @channel }} class="channel__main__player"/>
   </div>
@@ -22,4 +58,4 @@
       <Input submit={{ @send_message }} />
     </div>
   </div>
-</div>
+  -->

@@ -11,7 +11,50 @@
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
-    <header>
+    <section class="hero is-fullheight">
+      <div class="hero-head">
+        <div class="container">
+          <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+              <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </a>
+            </div>
+
+            <div id="navbarBasicExample" class="navbar-menu">
+              <div class="navbar-start">
+                <%= link "Home", to: "/", method: :get, class: "navbar-item" %>
+                <a class="navbar-item">
+                  Browse
+                </a>
+              </div>
+
+              <div class="navbar-end">
+                <%= if @current_user do %>
+                  <%= link "Channel", to: "/#{@current_user.username}", method: :get, class: "navbar-item" %>
+                  <%= link "Dashboard", to: "/u/dashboard", method: :get, class: "navbar-item" %>
+                  <%= link "Settings", to: Routes.pow_registration_path(@conn, :edit), class: "navbar-item" %>
+                  <%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "navbar-item" %>
+                <% else %>
+                  <div class="navbar-item">
+                    <div class="buttons">
+                      <%= link "Sign In", to: Routes.pow_session_path(@conn, :new), method: :get, class: "button is-dark" %>
+                      <%= button "Register", to: Routes.pow_registration_path(@conn, :new), method: :get, class: "button is-dark is-outlined" %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+      <div class="hero-body">
+        <%= @inner_content %>
+      </div>
+    </section>
+    <!--<header>
       <div class="menu">
         <img class="menu__branding" src="<%= Routes.static_path(@conn, "/images/enysen_bird.svg") %>" alt="Enysen" style="width:2em">
         <input type="text" class="menu__search-bar" placeholder="search">
@@ -29,7 +72,6 @@
           </ul>
         </nav>
       </div>
-    </header>
-    <%= @inner_content %>
+    </header>-->
   </body>
 </html>

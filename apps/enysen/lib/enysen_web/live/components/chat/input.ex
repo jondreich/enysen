@@ -11,10 +11,14 @@ defmodule EnysenWeb.Live.Components.Chat.Input do
   def render(assigns) do
     ~H"""
     <Form for={{ ChatMessage }} submit={{ @submit }} action="#">
-      <Field name="body">
-        <TextArea opts={{ placeholder: "Type message here..." }} />
-      </Field>
-      <Submit>send</Submit>
+      <div class="field">
+        <Field name="body">
+          <TextArea opts={{ placeholder: "Type message here...", class: "textarea has-fixed-size" }} />
+        </Field>
+      </div>
+      <div class="field has-text-right">
+        <Submit opts={{ class: "button is-primary is-small" }}>SEND</Submit>
+      </div>
     </Form>
     """
   end
